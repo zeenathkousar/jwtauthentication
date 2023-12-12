@@ -95,21 +95,7 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-const auth = async (req, res, next) => {
-  let { token } = req.cookies;
-  if (!token) {
-    res.redirect("/login");
-  } else {
-    let verified = await jwt.verify(token, "vinod@7144");
-    req.user = verified._doc;
-    next();
-  }
-};
 
-app.get("/home", auth, (req, res) => {
-  let user = req.user;
-  res.render("home.ejs", { user });
-});
 
 
 app.listen(port, () => {
